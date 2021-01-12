@@ -20,8 +20,6 @@ export default function Home() {
   useEffect(async () => {
     const API_KEY = '1d58120477152d8c6b5e075a0b4d64f7';
     const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${API_KEY}`;
-    // const API_URL = `api.openweathermap.org/data/2.5/weather?lat=10.55555&lon=-74.33333&appid=1d58120477152d8c6b5e075a0b4d64f7`;
-    // const API_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=metric&exclude=hourly&appid=${API_KEY}`;
     try {
       const { data } = await axios.get(API_URL);
       setData(data);

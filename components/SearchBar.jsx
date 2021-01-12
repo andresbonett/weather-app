@@ -11,7 +11,9 @@ const searchGoogleAddress = async address => {
     const location = data.results[0].geometry.location;
     return location;
   } catch (error) {
-    console.log(error);
+    alert('location not found');
+    const location = { lat: 10.39, lng: -75.48 };
+    return location;
   }
 };
 
