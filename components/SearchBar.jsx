@@ -1,6 +1,7 @@
 import { useState, useRef, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
+import GeoLocation from './GeoLacation';
 
 const searchGoogleAddress = async address => {
   const api_key = 'AIzaSyCmjvkXB_DMnBUNwxQztLMStyQmA_szbNw';
@@ -45,10 +46,19 @@ export default function SearchBar() {
         <button onClick={handleSubmit} type="submit">
           Search
         </button>
+        <GeoLocation />
       </form>
       <style jsx>{`
         form {
           margin: 1em 0;
+          color: #393939;
+          font-size: 12px;
+          padding: 5px;
+        }
+        input {
+          color: #393939;
+          font-size: 16px;
+          padding: 5px;
         }
         button {
           margin-left: 0.5rem;
