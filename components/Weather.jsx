@@ -1,18 +1,23 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 export default function Weather() {
+  const { data } = useContext(AppContext);
+  const {
+    name,
+    sys: { country },
+  } = data;
   return (
     <>
       <div>
-        <h1>Bogota, CO</h1>
-        <div>Sunday 10th January</div>
+        <h1>
+          {name}, {country}
+        </h1>
+        <div>{new Date().toDateString()}</div>
       </div>
 
       <style jsx>{`
-        div {
-          width: 100%;
-        }
-
         h1 {
           margin: 0;
           font-size: 2em;

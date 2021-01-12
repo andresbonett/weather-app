@@ -1,26 +1,26 @@
 import React from 'react';
 
-export default function CurrentStats() {
+export default function CurrentStats({ data }) {
+  const {
+    main: { humidity, temp_max, temp_min },
+    wind: { speed },
+  } = data;
+
   return (
     <div className="current-stats">
       <div>
-        <div className="value">23&deg;</div>
+        <div className="value">{temp_max}&deg;</div>
         <div className="label">High</div>
-        <div className="value">14&deg;</div>
+        <div className="value">{temp_min}&deg;</div>
         <div className="label">Low</div>
       </div>
       <div>
-        <div className="value">7mph</div>
+        <div className="value">{speed}km/h</div>
         <div className="label">Wind</div>
-        <div className="value">0%</div>
-        <div className="label">Rain</div>
+        <div className="value">{humidity}%</div>
+        <div className="label">humidity</div>
       </div>
-      <div>
-        <div className="value">05:27</div>
-        <div className="label">Sunrise</div>
-        <div className="value">20:57</div>
-        <div className="label">Sunset</div>
-      </div>
+
       <style jsx>{`
         .current-stats {
           display: flex;

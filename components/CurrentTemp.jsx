@@ -1,26 +1,18 @@
-import AppContext from '../context/AppContext';
-import { useContext } from 'react';
-import Loading from './Loading';
-
-export default function CurrentTemp() {
-  const { data } = useContext(AppContext);
-
-  if (Object.keys(data).length === 0) return <Loading />;
-
+export default function CurrentTemp({ data }) {
   return (
     <>
       {
         <div className="current-temperature">
           <div className="icon-container">
             <img
-              src={`http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`}
+              src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`}
               className="current-temperature__icon"
               alt=""
             />
           </div>
           <div className="content-container">
-            <div className="value">{parseInt(data.current.temp)}&deg;</div>
-            <div className="summary">{data.current.weather[0].description}</div>
+            <div className="value">{parseInt(data.main.temp)}&deg;</div>
+            <div className="summary">{data.weather[0].description}</div>
           </div>
 
           <style jsx>{`

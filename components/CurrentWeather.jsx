@@ -1,13 +1,20 @@
 import React from 'react';
 import CurrentStats from './CurrentStats';
 import CurrentTemp from './CurrentTemp';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
+import Loading from './Loading';
 
 export default function CurrentWeather() {
+  const { data } = useContext(AppContext);
+
+  if (Object.keys(data).length === 0) return <Loading />;
+
   return (
     <>
       <div>
-        <CurrentTemp />
-        <CurrentStats />
+        <CurrentTemp data={data} />
+        <CurrentStats data={data} />
       </div>
       <style jsx>
         {`

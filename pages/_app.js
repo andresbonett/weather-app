@@ -1,13 +1,11 @@
 import '../styles/globals.css';
-import AppContext from '../context/AppContext';
-import { useInitialState } from '../hooks/useInitialState';
+import AppContextProvider from '../context/AppContext';
 
 function MyApp({ Component, pageProps }) {
-  const initialState = useInitialState();
   return (
-    <AppContext.Provider value={initialState}>
+    <AppContextProvider>
       <Component {...pageProps} />
-    </AppContext.Provider>
+    </AppContextProvider>
   );
 }
 

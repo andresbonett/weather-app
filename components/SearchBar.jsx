@@ -1,31 +1,33 @@
-import { useState, useRef, useEffect } from 'react';
-import AppContext from '../context/AppContext';
-import { useContext } from 'react';
-import useGoogleAddress from '../hooks/useGoogleAddress';
+import { useState, useRef, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
+import axios from 'axios';
+
+const searchGoogleAddress = async address => {
+  const api_key = 'AIzaSyCmjvkXB_DMnBUNwxQztLMStyQmA_szbNw';
+  const API = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${api_key}`;
+  try {
+    const { data } = await axios.get(API);
+    const location = data.results[0].geometry.location;
+    return location;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default function SearchBar() {
   const [value, setValue] = useState('');
   const form = useRef(null);
-
-  const { setLocation, search, setSearch } = useContext(AppContext);
-  const location = useGoogleAddress(search);
-
-  useEffect(() => {
-    console.log(location);
-    setLocation(location);
-  }, [search]);
-
+  const { setLocation } = useContext(AppContext);
   const handleChange = event => {
     setValue(event.target.value);
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const formData = new FormData(form.current);
     const address = formData.get('search');
 
-    console.log(location);
+    const location = await searchGoogleAddress(address);
     setLocation(location);
-    setSearch(address);
   };
 
   return (
@@ -44,6 +46,15 @@ export default function SearchBar() {
           Search
         </button>
       </form>
+      <style jsx>{`
+        form {
+          margin: 1em 0;
+        }
+        button {
+          margin-left: 0.5rem;
+          height: 2.1rem;
+        }
+      `}</style>
     </>
   );
 }
