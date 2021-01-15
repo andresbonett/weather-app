@@ -1,31 +1,33 @@
-import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import { useContext } from "react"
+import { AppContext } from "../context/AppContext"
 
 export default function GeoLacation() {
-  const { setLocation } = useContext(AppContext);
+  const { setLocation } = useContext(AppContext)
 
-  const handleClick = e => {
-    e.preventDefault();
+  const success = (position) => {
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
+    console.log(latitude, longitude)
+    setLocation({
+      lng: longitude,
+      lat: latitude,
+    })
+  }
+
+  const error = () => {
+    console.log("Not Geo")
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault()
+
     if (!navigator.geolocation) {
-      setActive(false);
-      return;
+      setActive(false)
+      return
     }
 
-    const success = position => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      console.log(latitude, longitude);
-      setLocation({
-        lng: longitude,
-        lat: latitude,
-      });
-    };
-
-    const error = () => {
-      console.log('Not Geo');
-    };
-    navigator.geolocation.getCurrentPosition(success, error);
-  };
+    navigator.geolocation.getCurrentPosition(success, error)
+  }
 
   return (
     <>
@@ -37,5 +39,5 @@ export default function GeoLacation() {
         }
       `}</style>
     </>
-  );
+  )
 }
