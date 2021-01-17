@@ -1,34 +1,34 @@
-import CardWeather from './CardWeather';
-import { AppContext } from '../context/AppContext';
-import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import CardWeather from "./CardWeather"
+import { AppContext } from "../context/AppContext"
+import { useContext, useEffect, useState } from "react"
+import axios from "axios"
 
 export default function ForecastWeather() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
 
   const {
     location: { lng, lat },
     isLoading,
-  } = useContext(AppContext);
+  } = useContext(AppContext)
 
   useEffect(async () => {
-    const API_KEY = '1d58120477152d8c6b5e075a0b4d64f7';
-    const API_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`;
+    const API_KEY = "1d58120477152d8c6b5e075a0b4d64f7"
+    const API_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`
     try {
-      const { data } = await axios.get(API_URL);
-      setData(data.daily);
+      const { data } = await axios.get(API_URL)
+      setData(data.daily)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  }, [lng, lat]);
+  }, [lng, lat])
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Loading />
 
   return (
     <div>
       <h2>Weather of the week</h2>
-      {data.map(card => (
-        <CardWeather key={card.dt} {...card} />
+      {data.map((card) => (
+        <CardWeather key={card.dt} card={card} />
       ))}
 
       <style jsx>{`
@@ -43,5 +43,5 @@ export default function ForecastWeather() {
         }
       `}</style>
     </div>
-  );
+  )
 }

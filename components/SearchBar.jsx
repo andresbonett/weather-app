@@ -1,50 +1,48 @@
-import { useState, useRef, useContext } from 'react';
-import { AppContext } from '../context/AppContext';
-import axios from 'axios';
-import GeoLocation from './GeoLacation';
+import { useState, useRef, useContext } from "react"
+import { AppContext } from "../context/AppContext"
+import axios from "axios"
+import GeoLocation from "./GeoLacation"
 
-const searchGoogleAddress = async address => {
-  const api_key = 'AIzaSyCmjvkXB_DMnBUNwxQztLMStyQmA_szbNw';
-  const API = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${api_key}`;
+const searchGoogleAddress = async (address) => {
+  const api_key = "AIzaSyCmjvkXB_DMnBUNwxQztLMStyQmA_szbNw"
+  const API = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${api_key}`
   try {
-    const { data } = await axios.get(API);
-    const location = data.results[0].geometry.location;
-    return location;
+    const { data } = await axios.get(API)
+    const location = data.results[0].geometry.location
+    return location
   } catch (error) {
-    alert('location not found');
-    const location = { lat: 10.39, lng: -75.48 };
-    return location;
+    alert("location not found")
+    const location = { lat: 10.39, lng: -75.48 }
+    return location
   }
-};
+}
 
 export default function SearchBar() {
-  const [value, setValue] = useState('');
-  const form = useRef(null);
-  const { setLocation } = useContext(AppContext);
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const formData = new FormData(form.current);
-    const address = formData.get('search');
+  const [value, setValue] = useState("")
+  const form = useRef(null)
+  const { setLocation } = useContext(AppContext)
+  const handleChange = (event) => {
+    setValue(event.target.value)
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData(form.current)
+    const address = formData.get("search")
 
-    const location = await searchGoogleAddress(address);
-    setLocation(location);
-  };
+    const location = await searchGoogleAddress(address)
+    setLocation(location)
+  }
 
   return (
     <>
       <form ref={form}>
-        <label htmlFor="search">
-          <input
-            name="search"
-            placeholder="Search"
-            type="text"
-            value={value}
-            onChange={handleChange}
-          />
-        </label>
+        <input
+          id="search"
+          name="search"
+          placeholder="Search"
+          value={value}
+          onChange={handleChange}
+        />
         <button onClick={handleSubmit} type="submit">
           Search
         </button>
@@ -68,5 +66,5 @@ export default function SearchBar() {
         }
       `}</style>
     </>
-  );
+  )
 }
