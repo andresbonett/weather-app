@@ -1,13 +1,15 @@
-import React from 'react';
-import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import React from "react"
+import { useContext } from "react"
+import { AppContext } from "../context/AppContext"
 
 export default function Weather() {
-  const { data } = useContext(AppContext);
   const {
-    name,
-    sys: { country },
-  } = data;
+    data: {
+      name,
+      sys: { country },
+    },
+  } = useContext(AppContext)
+
   return (
     <>
       <div>
@@ -25,5 +27,5 @@ export default function Weather() {
         }
       `}</style>
     </>
-  );
+  )
 }

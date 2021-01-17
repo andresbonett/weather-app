@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react"
 
-export default function CardWeather(props) {
+export default function CardWeather({ card }) {
   const {
     dt,
     wind_speed,
     humidity,
     feels_like: { day, eve },
     weather,
-  } = props;
+  } = card
 
   // time
-  const date = new Date(dt * 1000);
+  const date = new Date(dt * 1000)
   const formattedDate =
-    date.toDateString().slice(0, 4) + '' + date.toDateString().slice(7, 10);
+    date.toDateString().slice(0, 4) + "" + date.toDateString().slice(7, 10)
 
   return (
     <>
@@ -58,5 +58,5 @@ export default function CardWeather(props) {
         }
       `}</style>
     </>
-  );
+  )
 }
